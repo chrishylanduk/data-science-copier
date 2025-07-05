@@ -1,0 +1,12 @@
+[project]
+name = "chris-python-data-science-ai-copier-template"
+version = "0.1.0"
+description = "A Copier template for Python data science and AI projects"
+readme = "README.md"
+requires-python = ">=3.13"
+
+[dependency-groups]
+dev = [
+    "pre-commit>=4.1.0",
+    "ruff>=0.9.2",
+]

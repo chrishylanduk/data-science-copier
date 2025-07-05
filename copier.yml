@@ -1,0 +1,118 @@
+_subdirectory: chris_python_data_science_ai_copier_template
+
+# Pre-copy message
+_message_before_copy: |
+  🚀 Welcome to Chris's Python Data Science & AI Project Template!
+
+  This template will help you set up a complete Python data science and AI project
+  with best practices, proper structure, and essential tools pre-configured.
+
+  What you'll get:
+  • Modern Python project structure with src/ layout
+  • Pre-configured development tools (pre-commit, linting, formatting)
+  • Jupyter notebook organization for analysis and exploration
+  • Testing framework setup
+  • Environment management with .env files
+  • Documentation structure
+
+  Please answer the following questions to customize your project:
+
+# Post-copy message
+_message_after_copy: |
+  ✅ Your Python Data Science & AI project "{{ project_name }}" has been successfully created!
+
+  Next steps to get started:
+  {% if _copier_conf.dst_path != "." %}
+
+  0. Navigate to your project directory:
+     cd {{ _copier_conf.dst_path }}
+  {% endif %}
+  1. Set up your Python environment:
+     # Using uv (recommended)
+     uv sync --group dev
+
+  2. Install pre-commit hooks:
+     uv run pre-commit install
+
+  3. Copy and configure your environment file:
+     cp .env.example .env
+     # Edit .env with your specific configuration
+
+  4. Start exploring:
+     • Check out notebooks/exploratory/ for initial data exploration
+     • Use notebooks/analysis/ for your main analysis work
+     • Add your source code in src/{{ project_name }}/
+     • Run tests with: uv run pytest
+     {% if "jupyter" in libraries %}• Start Jupyter: uv run jupyter lab{% endif %}
+
+  {% if libraries %}
+  📦 Your selected libraries have been added to pyproject.toml and are ready to use!
+  {% endif %}
+
+  Happy coding! 🎉
+
+# Pre-update message
+_message_before_update: |
+  🔄 Updating your Python Data Science & AI project template...
+
+  This will update your project structure and configuration files to the latest
+  version while preserving your custom code and data.
+
+  Please review the changes carefully after the update completes.
+
+# Post-update message
+_message_after_update: |
+  ✅ Your project template has been successfully updated!
+
+  Important notes:
+  • Review any changes, addressing any merge conflicts as needed
+
+# questions
+project_name:
+  type: str
+  help: "What is your project name? (e.g. example_project)"
+  validator: >-
+      {% if not (project_name | regex_search('^[a-z][a-z0-9_]+$')) %}
+      project_name must start with a letter, followed by one or more letters, digits or underscores, all lowercase.
+      {% endif %}
+      {% if project_name | length < 3 %}
+      project_name must be at least 3 characters long.
+      {% endif %}
+      {% if project_name | length > 50 %}
+      project_name must be no more than 50 characters long.
+      {% endif %}
+
+project_description:
+  type: str
+  help: "How would you describe your project, in a few words?"
+
+author_name:
+  type: str
+  help: "What is your name / what do you go by?"
+
+license:
+  type: str
+  help: "Which license do you want to use for your project?"
+  default: "MIT"
+  choices:
+    - "MIT"
+    - "Apache-2.0"
+    - "GPL-3.0"
+    - "BSD-3-Clause"
+    - "None"
+
+libraries:
+  type: str
+  help: "Select the libraries you want to include (all optional, can be added later):"
+  multiselect: true
+  choices:
+    pandas (data manipulation and analysis): pandas
+    numpy (numerical computing): numpy
+    matplotlib (basic plotting and visualization): matplotlib
+    seaborn (statistical data visualization): seaborn
+    plotly (interactive plots and dashboards): plotly
+    scikit-learn (machine learning library): scikit-learn
+    python-dotenv (environment variable management): python-dotenv
+    pydantic (data validation and settings): pydantic
+    requests (HTTP library for API calls): requests
+  default: []

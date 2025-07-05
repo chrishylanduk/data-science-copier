@@ -1,0 +1,29 @@
+[project]
+name = "{{ project_name }}"
+version = "0.0.1"
+description = "{{ project_description }}"
+readme = "README.md"
+requires-python = ">=3.13"
+authors = [
+    {name = "{{ author_name }}"{% if author_email %}, email = "{{ author_email }}"{% endif %}},
+]
+{% if license != "None" %}
+license = {text = "{{ license }}"}
+{% endif %}
+dependencies = [
+{% for lib in libraries %}
+    "{{ lib }}",
+{% endfor %}
+]
+
+[dependency-groups]
+dev = [
+    "pre-commit>=4.1.0",
+    "ruff>=0.9.2",
+    "pytest",
+    "itables",
+    "pip-audit",
+    "pipask",
+    "jupyter",
+    "ipykernel",
+]
