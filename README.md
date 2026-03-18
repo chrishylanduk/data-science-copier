@@ -9,7 +9,7 @@ This template was originally based off [govcookiecutter](https://github.com/best
 Create a new directory for your project, then navigate to it. Assuming you have already [installed copier](https://copier.readthedocs.io/en/stable/), just run:
 
 ```shell
-copier copy https://github.com/chrishylanduk/chris-hyland-copier.git .
+copier copy https://github.com/chrishylanduk/data-science-copier.git .
 ```
 
 Once you've answered all the prompts, your project will be created.
